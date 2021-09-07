@@ -257,11 +257,12 @@ let user = new worker1(13);
 console.log(user.surcharge());
 
 class worker2 {
-  constructor(name, surname, wages, exp) {
+  constructor(name, surname, wages, exp, ed) {
     (this.name = name),
       (this.surname = surname),
       (this.wages = wages),
-      (this.exp = exp);
+      (this.exp = exp),
+      (this.education = ed);
   }
 
   fullName() {
@@ -278,10 +279,46 @@ class worker2 {
     }
   }
 }
-
+class education {
+  constructor(yearStart, yearEnd, univ) {
+    (this.yearStart = yearStart),
+      (this.yearEnd = yearEnd),
+      (this.university = univ);
+  }
+}
+class education1 extends worker2 {
+  constructor(
+    name,
+    surname,
+    wages,
+    exp,
+    yearOfStarting,
+    yearOfEnding,
+    university
+  ) {
+    super(name, surname, wages, exp);
+    (this.yearOfStarting = yearOfStarting),
+      (this.yearOfEnding = yearOfEnding),
+      (this.university = university);
+  }
+}
+let ed1 = new education(2007, 2012, "ZNTY");
 let user1 = new worker2("Denis", "Mescheryakov", 5000, 7);
-let user2 = new worker2("Petr", "Sidorov", 15000, 19);
+let user2 = new worker2("Petr", "Sidorov", 15000, 19, ed1);
+let education2 = new education1(
+  "Denis",
+  "Mescheryakov",
+  5000,
+  7,
+  2007,
+  2012,
+  "ZNMY"
+);
 console.log(user1.fullName());
 console.log(user1.surcharge());
 console.log(user2.fullName());
 console.log(user2.surcharge());
+console.log(user2);
+console.log(education2);
+console.log(education2.fullName());
+console.log(education2.surcharge());
