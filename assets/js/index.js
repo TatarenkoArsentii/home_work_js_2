@@ -322,3 +322,40 @@ console.log(user2);
 console.log(education2);
 console.log(education2.fullName());
 console.log(education2.surcharge());
+
+//Task 3 lvl 2 variant 1
+let string =
+  "  Lorem ipsum  dolor sit amet consectetur,   adipisicing elit. Nobis,     quia?   ";
+
+let capitalize = (str) => {
+  let arr1 = [];
+  str
+    .trim()
+    .replace(/ +/g, " ")
+    .split(" ")
+    .forEach((el) => arr1.push(el[0].toUpperCase() + el.substring(1)));
+  return arr1.join(" ");
+};
+console.log(capitalize(string));
+
+//Task 3 lvl 2 variant 2
+
+let capitalize1 = (str) => {
+  return str
+    .trim()
+    .replace(/ +/g, " ")
+    .split(" ")
+    .map((el) => el[0].toUpperCase() + el.substring(1))
+    .join(" ");
+};
+console.log(capitalize1(string));
+
+let string1 = "str-var-test";
+let camelize = (str) => {
+  return str
+    .split("-")
+    .map((el, i) => (i == 0 ? el : el[0].toUpperCase() + el.substring(1)))
+    .join("");
+};
+
+console.log(camelize(string1));
