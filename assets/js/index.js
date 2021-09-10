@@ -65,7 +65,7 @@ console.log(summArr2(arr1));
 
 // Task 1 lvl 2 variant 1
 
-let notNullArr = (arr) => arr.filter((key) => key > 0).join(" ");
+let notNullArr = (arr) => arr.filter((key) => key != 0).join(" ");
 
 console.log(notNullArr(arr1));
 
@@ -75,7 +75,7 @@ let notNullArr1 = (arr) => {
   let result = [];
 
   arr.forEach((el) => {
-    if (el > 0) result.push(el);
+    if (el != 0) result.push(el);
   });
   return result.toString();
 };
@@ -87,7 +87,7 @@ console.log(notNullArr1(arr1));
 let notNullArr2 = (arr) => {
   let result = "";
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > 0) result += `${arr[i]},`;
+    if (arr[i] != 0 /* && arr[i] != undefined */) result += `${arr[i]},`;
   }
   console.log(typeof result);
   return result;
@@ -183,21 +183,41 @@ palindrome1(str);
 
 // Task 2 lvl 2
 
-let map = new Map();
+let users = [
+  { name: "User1", id: 1 },
+  { name: "User2", id: 2 },
+  { name: "User3", id: 3 },
+  { name: "User4", id: 4 },
+  { name: "User5", id: 5 },
+  { name: "User6", id: 6 },
+  { name: "User7", id: 7 },
+];
 
-let userObj1 = {
-    id: 1,
-    name: "Ivan",
-    surname: "Petrichenko",
-  },
-  userObj2 = {
-    id: 2,
-    name: "Denis",
-    surname: "Meschiryakov",
-  };
-map.set(userObj1.id, userObj1.name);
-map.set(userObj2.id, userObj2.name);
-console.log(map);
+let userMap = (arr) => {
+  let map = new Map();
+  for (let key of arr) {
+    map.set(key.id, key.name);
+  }
+  return map;
+};
+
+console.log(userMap(users));
+
+// let map = new Map();
+
+// let userObj1 = {
+//     id: 1,
+//     name: "Ivan",
+//     surname: "Petrichenko",
+//   },
+//   userObj2 = {
+//     id: 2,
+//     name: "Denis",
+//     surname: "Meschiryakov",
+//   };
+// map.set(userObj1.id, userObj1.name);
+// map.set(userObj2.id, userObj2.name);
+// console.log(map);
 
 // Task 5 lvl 2
 
@@ -257,12 +277,19 @@ let user = new worker1(13);
 console.log(user.surcharge());
 
 class worker2 {
-  constructor(name, surname, wages, exp, ed) {
+  constructor(name, surname, wages, startDate, ed) {
     (this.name = name),
       (this.surname = surname),
+      (this.startWorkingYear = startDate),
+      // (this.exp = this.currentYear() - this.startWorkingYear),
       (this.wages = wages),
-      (this.exp = exp),
       (this.education = ed);
+  }
+  workerExp() {
+    return this.currentYear() - this.startWorkingYear;
+  }
+  currentYear() {
+    return new Date().getFullYear();
   }
 
   fullName() {
@@ -270,12 +297,12 @@ class worker2 {
   }
 
   surcharge() {
-    if (this.exp >= 5 && this.exp < 8) {
+    if (this.workerExp() >= 5 && this.workerExp() < 8) {
       return this.wages * 1.05;
-    } else if (this.exp >= 8) {
+    } else if (this.workerExp() >= 8) {
       return this.wages * 1.1;
     } else {
-      return this.wages();
+      return this.wages;
     }
   }
 }
@@ -303,27 +330,30 @@ class education1 extends worker2 {
   }
 }
 let ed1 = new education(2007, 2012, "ZNTY");
-let user1 = new worker2("Denis", "Mescheryakov", 5000, 7);
-let user2 = new worker2("Petr", "Sidorov", 15000, 19, ed1);
+let user1 = new worker2("Denis", "Mescheryakov", 5000, 2014, ed1);
+let user2 = new worker2("Petr", "Sidorov", 15000, 2013, ed1);
 let education2 = new education1(
   "Denis",
   "Mescheryakov",
   5000,
-  7,
+  2010,
   2007,
   2012,
   "ZNMY"
 );
+console.log(user1);
 console.log(user1.fullName());
 console.log(user1.surcharge());
+console.log(user2);
 console.log(user2.fullName());
 console.log(user2.surcharge());
+console.log(user2);
 console.log(user2);
 console.log(education2);
 console.log(education2.fullName());
 console.log(education2.surcharge());
 
-//Task 3 lvl 2 variant 1
+// Task 3 lvl 2 variant 1
 let string =
   "  Lorem ipsum  dolor sit amet consectetur,   adipisicing elit. Nobis,     quia?   ";
 
@@ -359,3 +389,49 @@ let camelize = (str) => {
 };
 
 console.log(camelize(string1));
+
+/* Просто тесты */
+function test() {
+  let str1 = " lorem   alorem1   blorem2       clorem        ipsum ";
+  let res1 = "";
+  let res2 = "";
+  let arrr = [];
+  let arrr1 = [];
+  let arrr2 = [];
+  console.log(str1);
+
+  // Удалили лишние пробелы между словами
+  for (let i = 0; i < str1.length; i++) {
+    if (str1[i] == " " && str1[i + 1] == " ") {
+    } else {
+      res1 += str1[i];
+    }
+  }
+
+  console.log(res1);
+
+  // создали массив из строки по пробелам
+  for (let i = 0, j = 0; i <= res1.length; i++) {
+    if (res1[i] != " " && i != res1.length) {
+      res2 += res1[i];
+    } else {
+      arrr[j] = res2;
+      res2 = "";
+      j++;
+    }
+  }
+
+  console.log(arrr);
+
+  // удаляем пустые строки в начале и конце массива
+  for (let i = 0, j = 0; i < arrr.length; i++) {
+    if (arrr[i] != "") {
+      arrr1[j] = arrr[i];
+      j++;
+    }
+  }
+
+  console.log(arrr1);
+}
+
+test();
