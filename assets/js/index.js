@@ -36,7 +36,7 @@ let arr1 = [
 // Task 1 lvl 1 variant 1
 
 let summArr = (arr) =>
-  arr.filter((el, i) => !(el % 2)).reduce((acc, value) => acc + value);
+  arr.filter((el, i) => (el % 2)).reduce((acc, value) => acc + value);
 
 console.log(summArr(arr1));
 
@@ -44,7 +44,7 @@ console.log(summArr(arr1));
 let summArr1 = (arr) => {
   let res = 0;
   arr.forEach((el) => {
-    el % 2 == 0 ? (res += el) : "";
+    el % 2 != 0 ? (res += el) : "";
   });
   return res;
 };
@@ -56,7 +56,7 @@ console.log(summArr1(arr1));
 let summArr2 = (arr) => {
   let result = 0;
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] % 2 == 0) result += arr[i];
+    if (arr[i] % 2) {result += arr[i]};
   }
   return result;
 };
